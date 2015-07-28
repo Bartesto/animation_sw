@@ -57,20 +57,20 @@ folds.no.7 <- fold[!nL7.index]
 
 setwd(here)
 #Obtain extents from are of interest shape file
-e <- extent(readOGR(dsn = "Z:\\DEC\\LornaGlenVegetationChange_15122C03\\DATA\\Working\\animation", 
-                    "aoi_LG_extent_polygons"))
-enclosure <- readOGR(dsn = "Z:\\DEC\\LornaGlenVegetationChange_15122C03\\DATA\\Working\\animation", 
-                     "Enclosure")
-LG <- readOGR(dsn = "Z:\\DEC\\LornaGlenVegetationChange_15122C03\\DATA\\Working\\animation", 
-              "LornaGlen")
+# e <- extent(readOGR(dsn = "Z:\\DEC\\LornaGlenVegetationChange_15122C03\\DATA\\Working\\animation", 
+#                     "aoi_LG_extent_polygons"))
+# enclosure <- readOGR(dsn = "Z:\\DEC\\LornaGlenVegetationChange_15122C03\\DATA\\Working\\animation", 
+#                      "Enclosure")
+# LG <- readOGR(dsn = "Z:\\DEC\\LornaGlenVegetationChange_15122C03\\DATA\\Working\\animation", 
+#               "LornaGlen")
 #Set options
 
 
 
-red=5
-green=4
-blue=3
-combo="543"
+red=3
+green=2
+blue=1
+combo="321"
 
 
 #timer
@@ -89,13 +89,13 @@ for(i in 1:length(folds.no.7)){
         bb <- raster(f, band = blue)
         bb <- stretch(bb)
         b <- brick(br, bg, bb)
-        bsc <- crop(b, e)
+        #bsc <- crop(b, e)
         png(filename = fname, width = 842, height = 870)
         par(mar=c(8,6,4,2)+0.1)
-        plotRGB(bsc, 1, 2, 3, axes = TRUE, 
-                main = paste0(plab, " ", "Lorna Glen"))
-        plot(enclosure, add = TRUE, lwd = 2, border = "green")
-        plot(LG, add= TRUE, lwd = 2, border = "yellow")
+        plotRGB(b, 1, 2, 3, axes = TRUE, 
+                main = paste0(plab, " ", "112/084"))
+        #plot(enclosure, add = TRUE, lwd = 2, border = "green")
+        #plot(LG, add= TRUE, lwd = 2, border = "yellow")
         dev.off()
         
 }
@@ -113,7 +113,7 @@ file.rename(png.list, nname)
 ani.options(convert = 'C:/Program Files/ImageMagick-6.9.1-Q16/convert.exe',
             ani.width = 1800, ani.height = 750, interval = 0.7, ani.dev = "png",
             ani.type = "png", loop = 0)
-im.convert("*.png", output = "wal-animation-543-Jan88-Jun15.gif")
+im.convert("*.png", output = "SW-Fire-animation-321-Jan14-Dec14.gif")
 
 end = Sys.time() - start
 end
