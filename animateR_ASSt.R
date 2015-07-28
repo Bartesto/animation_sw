@@ -10,26 +10,26 @@ library(animation)
 library(tools)
 
 
-#Working location
+#Directories
 here <- "Z:\\DOCUMENTATION\\BART\\R\\R_DEV\\animation_sw"
-#Image folders location
 imdir <- "C:\\processing\\downloads_here"
+tmpdir <- "C:\\Users\\barth\\AppData\\Local\\Temp\\R_raster_barth"
 
 setwd(imdir)
 
 #Function to return folder names - source HELPER functions
-list.dirs <- function(path=".", pattern=NULL, all.dirs=FALSE,
-                      full.names=FALSE, ignore.case=FALSE) {
-        # use full.names=TRUE to pass to file.info
-        all <- list.files(path, pattern, all.dirs,
-                          full.names=TRUE, recursive=FALSE, ignore.case)
-        dirs <- all[file.info(all)$isdir]
-        # determine whether to return full names or just dir names
-        if(isTRUE(full.names))
-                return(dirs)
-        else
-                return(basename(dirs))
-}
+# list.dirs <- function(path=".", pattern=NULL, all.dirs=FALSE,
+#                       full.names=FALSE, ignore.case=FALSE) {
+#         # use full.names=TRUE to pass to file.info
+#         all <- list.files(path, pattern, all.dirs,
+#                           full.names=TRUE, recursive=FALSE, ignore.case)
+#         dirs <- all[file.info(all)$isdir]
+#         # determine whether to return full names or just dir names
+#         if(isTRUE(full.names))
+#                 return(dirs)
+#         else
+#                 return(basename(dirs))
+# }
 
 #get all files then only .pre.ers - BEWARE and check file paths. They should
 #all start with: date folder/...pre.ers. If it has collected extra folders (e.g.
@@ -72,7 +72,7 @@ green=2
 blue=1
 combo="321"
 
-
+i=1
 #timer
 start = Sys.time()
 for(i in 1:length(folds.no.7)){
@@ -97,6 +97,8 @@ for(i in 1:length(folds.no.7)){
         #plot(enclosure, add = TRUE, lwd = 2, border = "green")
         #plot(LG, add= TRUE, lwd = 2, border = "yellow")
         dev.off()
+        tmp.list <- list.files(path = tmpdir, full.names = TRUE)
+        file.remove(tmp.list)#Dangerous be careful
         
 }
 end = Sys.time() - start
@@ -105,7 +107,7 @@ end
 setwd(here)
 
 #Rename png files to leading zero numbers to order correctly
-png.list <- list.files(pattern = '*543.png')
+png.list <- list.files(pattern = '*321.png')
 nname <- sprintf("%.4d.png", seq(png.list))
 file.rename(png.list, nname)
 
